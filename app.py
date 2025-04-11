@@ -27,17 +27,16 @@ def show_all_methods(input_path, prefix="result"):
     st.info("Processing Lucas-Kanade method...")
 
     # for label, method in methods.items():
-    raw_out = os.path.join(os.getcwd(), f"{prefix}_{"LK"}.avi")
-    mp4_out = os.path.join(os.getcwd(), f"{prefix}_{"LK"}.mp4")
-
+    raw_out = tempfile.NamedTemporaryFile(delete=False, suffix="_LK.avi").name
+    mp4_out = tempfile.NamedTemporaryFile(delete=False, suffix="_LK.mp4").name
     process_video(input_path, raw_out)
     convert_to_mp4(raw_out, mp4_out)
     st.subheader(f"Lucas-Kanade Method")
     st.video(mp4_out, format="video/mp4")
 
     st.info("Processing Horn-Schunck method...")
-    raw_out = os.path.join(os.getcwd(), f"{prefix}_{"HS"}.avi")
-    mp4_out = os.path.join(os.getcwd(), f"{prefix}_{"HS"}.mp4")
+    raw_out = tempfile.NamedTemporaryFile(delete=False, suffix="_HS.avi").name
+    mp4_out = tempfile.NamedTemporaryFile(delete=False, suffix="_HS.mp4").name
 
     process_video2(input_path, raw_out)
     convert_to_mp4(raw_out, mp4_out)
@@ -76,7 +75,8 @@ elif option == "Upload Your Video":
     video_file = st.file_uploader("Upload your video", type=["mp4", "avi", "mov"])
     if video_file is not None:
         current_dir = os.getcwd()
-        uploaded_path = os.path.join(current_dir, "uploaded_input.mp4")
+        # uploaded_path = os.path.join(current_dir, "uploaded_input.mp4")
+        uploaded_path = tempfile.NamedTemporaryFile(delete=False, suffix=".mp4").name
 
         with open(uploaded_path, "wb") as f:
             f.write(video_file.read())
