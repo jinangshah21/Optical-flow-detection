@@ -208,8 +208,8 @@ def get_optical_flow_video(
     cap.release()
 
     for batch_index, batch in enumerate(generate_batches(frame_generator, batch_size)):
-        # if (batch_index == 15):
-        #     break
+        if (batch_index == 12):
+            break
         batch_np = np.stack(batch)
         gray_batch = batch_np.mean(axis=3).astype(np.float64)
         raw_batch = batch_np[:-1]
