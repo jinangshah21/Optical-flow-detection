@@ -77,7 +77,7 @@ def horn_schunck_solver(I_x, I_y, I_t, lamda, max_iter, tol):
     return U, V
 
 
-def get_optical_flow_HS(frame1, frame2, lamda=5, max_iter=800, tol=1e-6, smoothening=0):
+def get_optical_flow_HS(frame1, frame2, lamda=5, max_iter=300, tol=1e-6, smoothening=0):
     frame1 = gaussian_filter(frame1, sigma=smoothening)
     frame2 = gaussian_filter(frame2, sigma=smoothening)
     
@@ -160,7 +160,7 @@ def get_optical_flow_video(video_path, target_video_path, step=20, scale=800.0, 
     prev_gray = None
     with sink:
         for i, frame in enumerate(frame_generator):
-            if i == 40: 
+            if i == 90: 
                 break
             # Convert to grayscale
             gray = np.array(cv2.resize(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), resize_shape)).astype(np.float32)
